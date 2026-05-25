@@ -8,7 +8,7 @@ const resultStyle = {
   loss: { bg: '#fef2f2', text: '#dc2626', border: '#fca5a5' },
   draw: { bg: '#fefce8', text: '#b45309', border: '#fde68a' },
 };
-const resultLabel = { win: '🥇 1st Place', loss: '💀 Last Place', draw: 'Non-win, Non-loss' };
+const resultLabel = { win: '🥇 Win', loss: '💀 Loss', draw: '🤝 Draw' };
 
 function SessionForm({ initial, games, players, onSave, onCancel }) {
   const today = new Date().toISOString().slice(0, 10);
@@ -162,19 +162,19 @@ function SessionForm({ initial, games, players, onSave, onCancel }) {
                   const player = players.find(p => p.id.toString() === sp.player_id);
                   const rs = resultStyle[sp.result];
                   return (
-                    <div key={idx} className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
+                    <div key={idx} className="flex flex-wrap items-center gap-2 p-3 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
                       <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
                         style={{ backgroundColor: player?.color || '#8b5cf6' }}>
                         {player?.name?.charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-sm font-semibold text-gray-800 flex-1 min-w-0 truncate">{player?.name}</span>
+                      <span className="text-sm font-semibold text-gray-800 flex-1 min-w-[80px] truncate">{player?.name}</span>
 
                       {/* Result buttons */}
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 ml-auto">
                         {RESULTS.map(r => (
                           <button key={r} type="button"
                             onClick={() => updatePlayer(idx, 'result', r)}
-                            className="px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all"
+                            className="px-2 py-1 rounded-lg text-xs font-semibold border transition-all"
                             style={sp.result === r
                               ? { backgroundColor: rs.bg, color: rs.text, borderColor: rs.border }
                               : { backgroundColor: 'white', color: '#9ca3af', borderColor: '#e5e7eb' }}>
@@ -186,7 +186,7 @@ function SessionForm({ initial, games, players, onSave, onCancel }) {
                       <input
                         type="number"
                         placeholder="Score"
-                        className="w-20 bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-purple-400"
+                        className="w-16 bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-purple-400"
                         value={sp.score}
                         onChange={e => updatePlayer(idx, 'score', e.target.value)}
                       />
@@ -285,7 +285,7 @@ export default function Sessions() {
   const ready = games && players;
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-4 md:p-8 max-w-3xl">
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="page-title">Sessions</h1>

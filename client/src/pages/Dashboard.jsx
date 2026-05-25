@@ -107,21 +107,21 @@ export default function Dashboard() {
     .sort((a, b) => b.value - a.value);
 
   return (
-    <div className="p-6 space-y-4">
+    <div className="p-4 md:p-6 space-y-3 md:space-y-4">
 
       {/* Recent Sessions — thin full-width bar */}
-      <div className="card py-2.5 px-4 flex items-center gap-3">
+      <div className="card py-2.5 px-3 md:px-4 flex items-center gap-2 md:gap-3">
         <div className="flex items-center gap-1.5 shrink-0">
           <Flame size={12} className="text-orange-400" />
-          <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Recent</span>
+          <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide hidden sm:block">Recent</span>
         </div>
-        <div className="flex-1 flex items-center">
+        <div className="flex-1 flex items-center overflow-x-auto gap-0 scrollbar-hide">
           {recentSessions.length === 0 ? (
             <p className="text-xs text-gray-400">No sessions yet</p>
           ) : recentSessions.slice(0, 5).map((s, i) => {
             const winner = s.players.find(p => p.result === 'win');
             return (
-              <div key={s.id} className={`flex items-center gap-2 flex-1 min-w-0 px-3 ${i > 0 ? 'border-l border-gray-100' : ''}`}>
+              <div key={s.id} className={`flex items-center gap-2 min-w-[130px] md:flex-1 px-3 ${i > 0 ? 'border-l border-gray-100' : ''}`}>
                 <div className="w-8 h-8 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center shrink-0 border border-gray-100">
                   {s.game_image_url
                     ? <img src={s.game_image_url} alt={s.game_name} className="w-full h-full object-cover" />
@@ -142,15 +142,15 @@ export default function Dashboard() {
         </Link>
       </div>
 
-      {/* Stat chips + export — single row */}
-      <div className="flex gap-3">
+      {/* Stat chips + export */}
+      <div className="grid grid-cols-2 md:flex gap-3">
         {[
           { label: 'Sessions',   value: totalSessions,          color: '#8b5cf6' },
           { label: 'Games',      value: uniqueGames,            color: '#3b82f6' },
           { label: 'Players',    value: playerStats.length,     color: '#10b981' },
           { label: 'Top Player', value: topPlayer?.name || '—', color: '#f59e0b', small: !!topPlayer },
         ].map(s => (
-          <div key={s.label} className="card flex-1 py-2.5 px-3 flex items-center gap-2.5">
+          <div key={s.label} className="card md:flex-1 py-2.5 px-3 flex items-center gap-2.5">
             <div className="w-1 h-7 rounded-full shrink-0" style={{ backgroundColor: s.color }} />
             <div className="min-w-0">
               <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">{s.label}</p>
@@ -159,14 +159,14 @@ export default function Dashboard() {
           </div>
         ))}
         <button onClick={handleExport} disabled={exporting}
-          className="card py-2.5 px-4 flex items-center gap-2 text-gray-400 hover:text-purple-600 transition-colors border border-transparent hover:border-purple-200 shrink-0">
+          className="card col-span-2 md:col-span-1 md:shrink-0 py-2.5 px-4 flex items-center justify-center gap-2 text-gray-400 hover:text-purple-600 transition-colors border border-transparent hover:border-purple-200">
           <Download size={13} />
           <span className="text-xs font-medium">{exporting ? 'Exporting…' : 'Export'}</span>
         </button>
       </div>
 
       {/* Podium + Player Stats */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
         {playerStats?.length > 0 && <Podium players={playerStats} />}
 
         {/* Player Stats */}
@@ -226,7 +226,7 @@ export default function Dashboard() {
           <p className="text-gray-300 text-sm mt-1">Add players, games, then log your first session</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
           {/* LEFT — Most Games Played (players) */}
           {playerStats.length > 0 && (() => {

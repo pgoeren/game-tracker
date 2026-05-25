@@ -284,7 +284,7 @@ export default function Players() {
 
   return (
     <div className="flex h-full">
-      <div className="w-72 shrink-0 border-r border-gray-200 bg-white flex flex-col">
+      <div className={`${selectedId ? 'hidden md:flex' : 'flex'} w-full md:w-72 shrink-0 border-r border-gray-200 bg-white flex-col`}>
         <div className="px-5 py-5 border-b border-gray-100 flex items-center justify-between">
           <div>
             <h1 className="page-title text-lg">Players</h1>
@@ -349,7 +349,12 @@ export default function Players() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-8">
+      <div className={`${selectedId ? 'flex' : 'hidden md:flex'} flex-1 overflow-y-auto p-4 md:p-8 flex-col`}>
+        <button
+          className="md:hidden mb-4 flex items-center gap-1.5 text-purple-600 text-sm font-semibold"
+          onClick={() => setSelectedId(null)}>
+          ← Players
+        </button>
         <PlayerProfile playerId={selectedId} />
       </div>
     </div>

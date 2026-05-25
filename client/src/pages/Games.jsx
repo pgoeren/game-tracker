@@ -179,7 +179,7 @@ export default function Games() {
   }
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div className="p-4 md:p-8 max-w-2xl">
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="page-title">Games</h1>

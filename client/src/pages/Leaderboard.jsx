@@ -30,7 +30,7 @@ export default function Leaderboard() {
   const { playerStats } = data;
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 md:p-8 max-w-4xl">
       <div className="mb-6">
         <h1 className="page-title">Leaderboard</h1>
         <p className="breadcrumb">Home / <span className="text-gray-600">Leaderboard</span></p>
@@ -51,15 +51,16 @@ export default function Leaderboard() {
             <p className="text-gray-400">No players yet</p>
           </div>
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-1">
+          <table className="w-full text-sm min-w-[480px]">
             <thead>
               <tr className="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100">
                 <th className="pb-3 font-semibold text-left w-10">#</th>
                 <th className="pb-3 font-semibold text-left">Player</th>
                 <th className="pb-3 font-semibold text-center">Games</th>
                 <th className="pb-3 font-semibold text-center">Wins</th>
-                <th className="pb-3 font-semibold text-center">Losses</th>
-                <th className="pb-3 font-semibold text-center">Draws</th>
+                <th className="pb-3 font-semibold text-center hidden sm:table-cell">Losses</th>
+                <th className="pb-3 font-semibold text-center hidden sm:table-cell">Draws</th>
                 <th className="pb-3 font-semibold text-right pr-2">Win Rate</th>
               </tr>
             </thead>
@@ -84,13 +85,14 @@ export default function Leaderboard() {
                   </td>
                   <td className="py-3 text-center text-gray-500">{p.games_played}</td>
                   <td className="py-3 text-center font-semibold text-purple-600">{p.wins}</td>
-                  <td className="py-3 text-center font-semibold text-red-500">{p.losses}</td>
-                  <td className="py-3 text-center text-gray-400">{p.draws}</td>
-                  <td className="py-3 w-36 pr-2"><WinRateBar value={p.win_rate || 0} /></td>
+                  <td className="py-3 text-center font-semibold text-red-500 hidden sm:table-cell">{p.losses}</td>
+                  <td className="py-3 text-center text-gray-400 hidden sm:table-cell">{p.draws}</td>
+                  <td className="py-3 w-28 md:w-36 pr-2"><WinRateBar value={p.win_rate || 0} /></td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

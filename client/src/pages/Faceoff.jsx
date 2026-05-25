@@ -162,7 +162,7 @@ export default function Faceoff() {
   };
 
   return (
-    <div className="p-6 max-w-2xl">
+    <div className="p-4 md:p-6 max-w-2xl">
       <div className="mb-5">
         <h1 className="page-title">Face Off</h1>
         <p className="breadcrumb">Home / <span className="text-gray-600">Face Off</span></p>
@@ -171,13 +171,13 @@ export default function Faceoff() {
       <div className="card space-y-5">
 
         {/* Player selectors + avatars */}
-        <div className="flex items-start gap-4">
+        <div className="flex flex-col md:flex-row items-stretch gap-4">
           <PlayerPanel
             players={players} value={p1Id} onChange={setP1Id}
             exclude={p2Id} side="1"
             stats={result?.player1?.overall}
           />
-          <div className="flex flex-col items-center justify-center pt-10 shrink-0 gap-1.5">
+          <div className="flex md:flex-col items-center justify-center md:pt-10 shrink-0 gap-1.5 py-1">
             <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-600 to-red-500 flex items-center justify-center shadow-lg shadow-purple-300">
               <Zap size={18} className="text-white" />
             </div>

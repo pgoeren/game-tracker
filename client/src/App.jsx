@@ -28,12 +28,11 @@ const pageTitles = {
 
 export default function App() {
   const location = useLocation();
-  const title = pageTitles[location.pathname] || 'Game Tracker';
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-56 shrink-0 flex flex-col" style={{ background: 'linear-gradient(180deg, #3d1f8f 0%, #2a1360 100%)' }}>
+      {/* Sidebar — desktop only */}
+      <aside className="hidden md:flex w-56 shrink-0 flex-col" style={{ background: 'linear-gradient(180deg, #3d1f8f 0%, #2a1360 100%)' }}>
         {/* Logo */}
         <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10">
           <div className="w-9 h-9 rounded-lg bg-red-500 flex items-center justify-center shadow-lg shadow-red-900/40">
@@ -74,7 +73,7 @@ export default function App() {
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Page */}
-        <main className="flex-1 overflow-auto bg-gray-50">
+        <main className="flex-1 overflow-auto bg-gray-50 pb-16 md:pb-0">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/sessions" element={<Sessions />} />
@@ -86,6 +85,25 @@ export default function App() {
           </Routes>
         </main>
       </div>
+
+      {/* Bottom nav — mobile only */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex items-center justify-around px-1 py-1 z-50 shadow-lg">
+        {nav.map(({ to, icon: Icon, label }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === '/'}
+            className={({ isActive }) =>
+              `flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl transition-colors min-w-0 ${
+                isActive ? 'text-purple-600' : 'text-gray-400'
+              }`
+            }
+          >
+            <Icon size={20} />
+            <span className="text-[9px] font-semibold truncate">{label}</span>
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }
